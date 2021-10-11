@@ -136,6 +136,7 @@
                 }
             },
             refresh() {
+                this.allResults = {};
                 this.loadTable();
                 this.loadLastWeek();
             }
