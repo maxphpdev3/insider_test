@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class LeagueTeam extends Model
 {
@@ -18,6 +19,7 @@ class LeagueTeam extends Model
     protected $fillable = [
         'season',
         'team_id',
+        'points',
         'played',
         'won',
         'drawn',
@@ -44,5 +46,15 @@ class LeagueTeam extends Model
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'team_id', 'id');
+    }
+
+    /**
+     * Get team's statistic.
+     *
+     * @return HasOne
+     */
+    public function statistic(): HasOne
+    {
+        return $this->hasOne(TeamStatistic::class, 'league_team_id', 'id');
     }
 }

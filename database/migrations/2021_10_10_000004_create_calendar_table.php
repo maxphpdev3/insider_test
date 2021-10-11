@@ -15,13 +15,15 @@ class CreateCalendarTable extends Migration
     {
         Schema::create('calendar', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('league_id')->index();
-            $table->smallInteger('season')->default(1);
+            $table->unsignedBigInteger('league_id');
+            $table->unsignedSmallInteger('season')->default(1);
             $table->unsignedBigInteger('home_team_id');
             $table->unsignedBigInteger('away_team_id');
-            $table->smallInteger('match_week');
+            $table->unsignedSmallInteger('match_week');
             $table->unsignedBigInteger('result_id')->nullable();
             $table->timestamps();
+
+            $table->index(['league_id', 'season']);
 
             $table->foreign('league_id')
                 ->references('id')

@@ -15,8 +15,8 @@ class CreateMatchResultsTable extends Migration
     {
         Schema::create('match_results', function (Blueprint $table) {
             $table->id();
-            $table->integer('home_club_goals');
-            $table->integer('away_club_goals');
+            $table->unsignedSmallInteger('home_club_goals');
+            $table->unsignedSmallInteger('away_club_goals');
             $table->timestamps();
         });
     }

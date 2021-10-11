@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::group(['prefix' => 'league-table'], function () {
-        Route::get('/{code}', [LeagueTeamController::class, 'get']);
-        Route::post('/{code}/start-season', [LeagueTeamController::class, 'start_season']);
-        Route::post('/{code}/play-next', [LeagueTeamController::class, 'play_next']);
-        Route::post('/{code}/play-all', [LeagueTeamController::class, 'play_all']);
-        Route::get('/{code}/last_week', [LeagueTeamController::class, 'last_week']);
-        Route::get('/{code}/prediction', [LeagueTeamController::class, 'prediction']);
+    Route::group(['prefix' => 'league-table/{code}'], function () {
+        Route::get('/', [LeagueTeamController::class, 'get']);
+        Route::post('/start-season', [LeagueTeamController::class, 'start_season']);
+        Route::post('/generate-next', [LeagueTeamController::class, 'generate_next_week']);
+        Route::post('/generate-all', [LeagueTeamController::class, 'generate_all']);
+        Route::get('/last_week', [LeagueTeamController::class, 'last_week']);
+        Route::get('/results', [LeagueTeamController::class, 'results']);
     });
 });

@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\League;
+use App\Models\LeagueTeam;
+use App\Services\StatisticService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,18 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        LeagueTeam::created(function ($leagueTeam) {
+            // init statistic if new season created
+            $statisticService = new StatisticService($leagueTeam);
+            $statisticService->init();
+        });
+
+        League::updated(function ($league) {
+            // recalculate statistic after week changed
+            if ($league->last_week > $league->getOriginal('last_week')) {
+                $statisticService = new StatisticService(new LeagueTeam());
+                $statisticService->recalculate($league->getTeamsBySeason());
+            }
+        });
     }
 }

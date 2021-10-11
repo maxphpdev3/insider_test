@@ -2149,19 +2149,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       league: {},
       teams: [],
       lastWeekResults: [],
-      prediction: []
+      allResults: {}
     };
   },
   mounted: function mounted() {
     this.loadTable();
     this.loadLastWeek();
-    this.loadPrediction();
   },
   methods: {
     loadTable: function loadTable() {
@@ -2221,12 +2234,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    loadPrediction: function loadPrediction() {
+    loadAllWeek: function loadAllWeek() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var _data$data4;
-
         var _yield$axios$get3, data;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
@@ -2234,12 +2245,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return axios.get('/api/v1/league-table/premier_league/prediction');
+                return axios.get('/api/v1/league-table/premier_league/results');
 
               case 2:
                 _yield$axios$get3 = _context3.sent;
                 data = _yield$axios$get3.data;
-                _this3.prediction = data === null || data === void 0 ? void 0 : (_data$data4 = data.data) === null || _data$data4 === void 0 ? void 0 : _data$data4.prediction;
+                _this3.allResults = data === null || data === void 0 ? void 0 : data.data;
 
               case 5:
               case "end":
@@ -2297,7 +2308,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 };
                 _context5.next = 3;
-                return axios.post('/api/v1/league-table/premier_league/play-all');
+                return axios.post('/api/v1/league-table/premier_league/generate-all');
 
               case 3:
                 _yield$axios$post2 = _context5.sent;
@@ -2330,7 +2341,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 };
                 _context6.next = 3;
-                return axios.post('/api/v1/league-table/premier_league/play-next');
+                return axios.post('/api/v1/league-table/premier_league/generate-next');
 
               case 3:
                 _yield$axios$post3 = _context6.sent;
@@ -2351,7 +2362,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     refresh: function refresh() {
       this.loadTable();
       this.loadLastWeek();
-      this.loadPrediction();
     }
   }
 });
@@ -38686,17 +38696,19 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                return _vm.startSeason()
+        _c("p", [
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.startSeason()
+                }
               }
-            }
-          },
-          [_vm._v("Start new season")]
-        )
+            },
+            [_vm._v("Start new season")]
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
@@ -38716,6 +38728,7 @@ var render = function() {
       _c("div", { staticClass: "col-md-4" }, [
         _c(
           "table",
+          { attrs: { id: "leagueTable" } },
           [
             _vm._m(0),
             _vm._v(" "),
@@ -38768,39 +38781,104 @@ var render = function() {
         0
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" })
+      _c(
+        "div",
+        { staticClass: "col-md-4" },
+        _vm._l(_vm.teams, function(team) {
+          return _c("p", { key: "prediction_" + team.id }, [
+            _vm._v(
+              "\n                " +
+                _vm._s(team.team.name) +
+                " - " +
+                _vm._s(team.statistic.prediction) +
+                "%\n            "
+            )
+          ])
+        }),
+        0
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-4" }, [
-        _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                return _vm.playAll()
+        _c("p", [
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.playAll()
+                }
               }
-            }
-          },
-          [_vm._v("Play all")]
-        )
+            },
+            [_vm._v("Play all")]
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
-        _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                return _vm.playNext()
+        _c("p", [
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.playNext()
+                }
               }
-            }
-          },
-          [_vm._v("Play next")]
-        )
+            },
+            [_vm._v("Play next")]
+          )
+        ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" })
+      _c(
+        "div",
+        { staticClass: "col-md-4" },
+        [
+          _c("p", [
+            _c(
+              "button",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.loadAllWeek()
+                  }
+                }
+              },
+              [_vm._v("Load all results")]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.allResults, function(week, index) {
+            return _c("div", { key: "all_weeks_" + index }, [
+              _c("b", [_vm._v("Week " + _vm._s(index))]),
+              _vm._v(" "),
+              _c(
+                "p",
+                _vm._l(week, function(result) {
+                  return _c("span", { key: "all_results_" + result.id }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(result.home_team.name) +
+                        " " +
+                        _vm._s(result.result.home_club_goals) +
+                        " -\n                        " +
+                        _vm._s(result.result.away_club_goals) +
+                        " " +
+                        _vm._s(result.away_team.name) +
+                        "\n                        "
+                    ),
+                    _c("br")
+                  ])
+                }),
+                0
+              )
+            ])
+          })
+        ],
+        2
+      )
     ])
   ])
 }

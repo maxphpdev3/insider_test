@@ -16,13 +16,13 @@ class Calendar extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var string[]
      */
     protected $fillable = [
         'season',
         'home_team_id',
         'away_team_id',
         'match_week',
+        'result_id',
     ];
 
     /**

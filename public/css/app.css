@@ -10004,3 +10004,20 @@ h3 {
     border-color: #dee2e6;
   }
 }
+@media (min-width: 1200px) {
+  .container-xl, .container-lg, .container-md, .container-sm, .container {
+    max-width: 1400px;
+  }
+}
+#leagueTable,
+#leagueTable td,
+#leagueTable th {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+#leagueTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}

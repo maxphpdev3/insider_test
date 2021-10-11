@@ -45,6 +45,34 @@ class League extends Model
     }
 
     /**
+     * Get all teams from the league.
+     *
+     * @param  int|null  $season
+     * @return Collection
+     */
+    public function getTeamsBySeason(int $season = null): Collection
+    {
+        return $this
+            ->teams()
+            ->where('season', $season ?? $this->season)
+            ->get();
+    }
+
+    /**
+     * Get team from the league by ID.
+     *
+     * @return LeagueTeam
+     */
+    public function getTeamById(int $id): LeagueTeam
+    {
+        return $this
+            ->teams()
+            ->where('season', $this->season)
+            ->where('team_id', $id)
+            ->first();
+    }
+
+    /**
      * Get all schedule for the league.
      *
      * @return HasMany
@@ -76,6 +104,7 @@ class League extends Model
                 'goals_against'
             ])
             ->with('team:id,code,name')
+            ->with('statistic:id,league_team_id,prediction')
             ->where('season', $this->season)
             ->orderBy('points', 'desc')
             ->orderBy('goals_for', 'desc')
@@ -95,6 +124,23 @@ class League extends Model
             ->calendar()
             ->where('season', $season ?? $this->season)
             ->where('match_week', $week)
+            ->with('homeTeam:id,name')
+            ->with('awayTeam:id,name')
+            ->with('result:id,home_club_goals,away_club_goals')
+            ->get();
+    }
+
+    /**
+     * Get all matches with result
+     *
+     * @param  int|null  $season
+     * @return Collection
+     */
+    public function getMatchResult(int $season = null): Collection
+    {
+        return $this
+            ->calendar()
+            ->where('season', $season ?? $this->season)
             ->with('homeTeam:id,name')
             ->with('awayTeam:id,name')
             ->with('result:id,home_club_goals,away_club_goals')

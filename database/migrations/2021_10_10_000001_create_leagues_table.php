@@ -17,8 +17,8 @@ class CreateLeaguesTable extends Migration
             $table->id();
             $table->string('code', 20)->unique();
             $table->string('name', 30);
-            $table->smallInteger('season')->default(1);
-            $table->smallInteger('last_week')->default(0);
+            $table->unsignedSmallInteger('season')->default(1);
+            $table->unsignedSmallInteger('last_week')->default(0);
             $table->timestamps();
         });
     }

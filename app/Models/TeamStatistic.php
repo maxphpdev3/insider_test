@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class MatchResult extends Model
+class TeamStatistic extends Model
 {
     use HasFactory;
+
+    protected $table = 'team_statistic';
 
     /**
      * The attributes that are mass assignable.
@@ -16,17 +18,20 @@ class MatchResult extends Model
      * @var string[]
      */
     protected $fillable = [
-        'home_club_goals',
-        'away_club_goals'
+        'points_to_first',
+        'avg_won',
+        'avg_goals_for',
+        'avg_goals_against',
+        'prediction'
     ];
 
     /**
-     * Get match for result.
+     * Get a league team.
      *
      * @return BelongsTo
      */
-    public function leagues(): BelongsTo
+    public function leagueTeam(): BelongsTo
     {
-        return $this->belongsTo(Calendar::class, 'result_id', 'id');
+        return $this->belongsTo(LeagueTeam::class, 'id', 'league_team_id');
     }
 }

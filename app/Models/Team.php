@@ -21,17 +21,6 @@ class Team extends Model
     ];
 
     /**
-     * Return team by code
-     *
-     * @param  string  $code
-     * @return self | null
-     */
-    public function getByCode(string $code): self
-    {
-        return self::where('code', $code)->first();
-    }
-
-    /**
      * Get all leagues where the team plays.
      *
      * @return HasMany

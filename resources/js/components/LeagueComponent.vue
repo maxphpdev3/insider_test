@@ -3,8 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <h3>{{ league.name }} (season #{{ league.season }})</h3>
-                <button @click="startSeason()">Start new season</button>
-
+                <p><button @click="startSeason()">Start new season</button></p>
             </div>
             <div class="col-md-4">
                 <h3>Match results (week #{{ league.last_week }})</h3>
@@ -15,7 +14,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <table>
+                <table id="leagueTable">
                     <tr>
                         <th>#</th>
                         <th>Name</th>
@@ -49,16 +48,31 @@
                 </p>
             </div>
             <div class="col-md-4">
+                <p v-for="team in teams" :key="'prediction_' + team.id">
+                    {{ team.team.name }} - {{ team.statistic.prediction }}%
+                </p>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <button @click="playAll()">Play all</button>
+                <p><button @click="playAll()">Play all</button></p>
             </div>
             <div class="col-md-4">
-                <button @click="playNext()">Play next</button>
+                <p><button @click="playNext()">Play next</button></p>
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <p><button @click="loadAllWeek()">Load all results</button></p>
+                <div v-for="(week, index) in allResults" :key="'all_weeks_' + index">
+                    <b>Week {{ index }}</b>
+                    <p>
+                        <span v-for="result in week" :key="'all_results_' + result.id">
+                            {{ result.home_team.name }} {{ result.result.home_club_goals }} -
+                            {{ result.result.away_club_goals }} {{ result.away_team.name }}
+                            <br>
+                        </span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -70,13 +84,12 @@
                 league: {},
                 teams: [],
                 lastWeekResults: [],
-                prediction: [],
+                allResults: {}
             }
         },
         mounted() {
             this.loadTable();
             this.loadLastWeek();
-            this.loadPrediction();
         },
         methods: {
             async loadTable() {
@@ -88,9 +101,9 @@
                 const { data } = await axios.get('/api/v1/league-table/premier_league/last_week');
                 this.lastWeekResults = data?.data?.results;
             },
-            async loadPrediction() {
-                const { data } = await axios.get('/api/v1/league-table/premier_league/prediction');
-                this.prediction = data?.data?.prediction;
+            async loadAllWeek() {
+                const { data } = await axios.get('/api/v1/league-table/premier_league/results');
+                this.allResults = data?.data;
             },
             async startSeason() {
                 axios.defaults.headers.common = {
@@ -107,7 +120,7 @@
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 };
-                const { data } = await axios.post('/api/v1/league-table/premier_league/play-all');
+                const { data } = await axios.post('/api/v1/league-table/premier_league/generate-all');
                 if (data?.status === 'success') {
                     this.refresh();
                 }
@@ -117,7 +130,7 @@
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 };
-                const { data } = await axios.post('/api/v1/league-table/premier_league/play-next');
+                const { data } = await axios.post('/api/v1/league-table/premier_league/generate-next');
                 if (data?.status === 'success') {
                     this.refresh();
                 }
@@ -125,7 +138,6 @@
             refresh() {
                 this.loadTable();
                 this.loadLastWeek();
-                this.loadPrediction();
             }
         }
     }
