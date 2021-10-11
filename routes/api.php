@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\LeagueTeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1'], function () {
+    Route::group(['prefix' => 'league-table'], function () {
+        Route::get('/{code}', [LeagueTeamController::class, 'get']);
+        Route::post('/{code}/start-season', [LeagueTeamController::class, 'start_season']);
+        Route::post('/{code}/play-next', [LeagueTeamController::class, 'play_next']);
+        Route::post('/{code}/play-all', [LeagueTeamController::class, 'play_all']);
+        Route::get('/{code}/last_week', [LeagueTeamController::class, 'last_week']);
+        Route::get('/{code}/prediction', [LeagueTeamController::class, 'prediction']);
+    });
 });
