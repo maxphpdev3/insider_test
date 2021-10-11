@@ -1,0 +1,305 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: 'api/v1/league-table/{code}'
+    metadata:
+      title: 'Get league'
+      description: 'Get information about league and teams'
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      code:
+        name: code
+        description: 'The code of the league.'
+        required: true
+        example: 19
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": "success",
+           "data": {
+               "league": {
+                   "id": 1,
+                   "code": "premier_league",
+                   "last_week": 6,
+                   "name": "Premier League",
+                   "season": 8,
+                   "created_at": "2021-10-11T10:15:39.000000Z",
+                   "updated_at": "2021-10-11T10:50:32.000000Z"
+               },
+               "teams": [
+                   {
+                       "drawn": 2,
+                       "goals_against": 8,
+                       "goals_for": 13,
+                       "id": 21,
+                       "league_id": 1,
+                       "lost": 1,
+                       "played": 6,
+                       "points": 11,
+                       "statistic": {
+                           "id": 21,
+                           "league_team_id": 21,
+                           "prediction": 100
+                       },
+                       "team": {
+                           "id": 1,
+                           "code": "man_united",
+                           "name": "Manchester United"
+                       },
+                       "team_id": 1,
+                       "won": 3
+                   }
+               ]
+           }
+          }
+        headers: []
+        description: '200'
+      -
+        status: 500
+        content: '{"status": "error"}'
+        headers: []
+        description: '500, internal server error'
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: 'api/v1/league-table/{code}/start-season'
+    metadata:
+      title: 'Start new season'
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      code:
+        name: code
+        description: 'The code of the league.'
+        required: true
+        example: 14
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": "success"
+          }
+        headers: []
+        description: '200'
+      -
+        status: 500
+        content: '{"status": "error"}'
+        headers: []
+        description: '500, internal server error'
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: 'api/v1/league-table/{code}/generate-next'
+    metadata:
+      title: 'Generate result of next week'
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      code:
+        name: code
+        description: 'The code of the league.'
+        required: true
+        example: 6
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": "success"
+          }
+        headers: []
+        description: '200'
+      -
+        status: 500
+        content: '{"status": "error"}'
+        headers: []
+        description: '500, internal server error'
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: 'api/v1/league-table/{code}/generate-all'
+    metadata:
+      title: 'Generate all results'
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      code:
+        name: code
+        description: 'The code of the league.'
+        required: true
+        example: 2
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": "success"
+          }
+        headers: []
+        description: '200'
+      -
+        status: 500
+        content: '{"status": "error"}'
+        headers: []
+        description: '500, internal server error'
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/v1/league-table/{code}/last_week'
+    metadata:
+      title: 'Get last week results'
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      code:
+        name: code
+        description: 'The code of the league.'
+        required: true
+        example: 15
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": "success",
+           "data": {
+               "last_week": 1,
+               "results": [
+                   {
+                       "id": 73,
+                       "league_id": 1,
+                       "season": 9,
+                       "match_week": 1,
+                       "away_team_id": 1,
+                       "away_team": {
+                           "id": 1,
+                           "name": "Manchester United"
+                       },
+                       "home_team_id": 3,
+                       "home_team": {
+                           "id": 3,
+                           "name": "Chelsea"
+                       },
+                       "result_id": 47,
+                       "result": {
+                           "id": 47,
+                           "home_club_goals": 1,
+                           "away_club_goals": 5
+                       },
+                       "created_at": "2021-10-11T12:52:57.000000Z",
+                       "updated_at": "2021-10-11T12:52:59.000000Z"
+                   }
+               ]
+           }
+          }
+        headers: []
+        description: '200'
+      -
+        status: 500
+        content: '{"status": "error"}'
+        headers: []
+        description: '500, internal server error'
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/v1/league-table/{code}/results'
+    metadata:
+      title: 'Get all matches result'
+      description: ''
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      code:
+        name: code
+        description: 'The code of the league.'
+        required: true
+        example: 20
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "status": "success",
+           "data": {
+               "1": [
+                   {
+                       "id": 73,
+                       "league_id": 1,
+                       "season": 9,
+                       "match_week": 1,
+                       "away_team_id": 1,
+                       "away_team": {
+                           "id": 1,
+                           "name": "Manchester United"
+                       },
+                       "home_team_id": 3,
+                       "home_team": {
+                           "id": 3,
+                           "name": "Chelsea"
+                       },
+                       "result_id": 47,
+                       "result": {
+                           "id": 47,
+                           "home_club_goals": 1,
+                           "away_club_goals": 5
+                       },
+                       "created_at": "2021-10-11T12:52:57.000000Z",
+                       "updated_at": "2021-10-11T12:52:59.000000Z"
+                   }
+               ]
+           }
+          }
+        headers: []
+        description: '200'
+      -
+        status: 500
+        content: '{"status": "error"}'
+        headers: []
+        description: '500, internal server error'
+    responseFields: []

@@ -66,8 +66,8 @@
                     <b>Week {{ index }}</b>
                     <p>
                         <span v-for="result in week" :key="'all_results_' + result.id">
-                            {{ result.home_team.name }} {{ result.result.home_club_goals }} -
-                            {{ result.result.away_club_goals }} {{ result.away_team.name }}
+                            {{ result.home_team.name }} {{ result.result ? result.result.home_club_goals : "_" }} -
+                            {{ result.result ? result.result.away_club_goals : "_" }} {{ result.away_team.name }}
                             <br>
                         </span>
                     </p>

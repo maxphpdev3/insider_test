@@ -1,0 +1,328 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "localhost"
+        }
+    ],
+    "info": {
+        "name": "Laravel",
+        "_postman_id": "74d63ad4-d495-4e22-b9d9-e089de84f22e",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "Get league",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/league-table\/:code",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/league-table\/:code",
+                            "variable": [
+                                {
+                                    "id": "code",
+                                    "key": "code",
+                                    "value": "19",
+                                    "description": "The code of the league."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Get information about league and teams",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"status\": \"success\",\n \"data\": {\n     \"league\": {\n         \"id\": 1,\n         \"code\": \"premier_league\",\n         \"last_week\": 6,\n         \"name\": \"Premier League\",\n         \"season\": 8,\n         \"created_at\": \"2021-10-11T10:15:39.000000Z\",\n         \"updated_at\": \"2021-10-11T10:50:32.000000Z\"\n     },\n     \"teams\": [\n         {\n             \"drawn\": 2,\n             \"goals_against\": 8,\n             \"goals_for\": 13,\n             \"id\": 21,\n             \"league_id\": 1,\n             \"lost\": 1,\n             \"played\": 6,\n             \"points\": 11,\n             \"statistic\": {\n                 \"id\": 21,\n                 \"league_team_id\": 21,\n                 \"prediction\": 100\n             },\n             \"team\": {\n                 \"id\": 1,\n                 \"code\": \"man_united\",\n                 \"name\": \"Manchester United\"\n             },\n             \"team_id\": 1,\n             \"won\": 3\n         }\n     ]\n }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\"status\": \"error\"}",
+                            "name": "internal server error"
+                        }
+                    ]
+                },
+                {
+                    "name": "Start new season",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/league-table\/:code\/start-season",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/league-table\/:code\/start-season",
+                            "variable": [
+                                {
+                                    "id": "code",
+                                    "key": "code",
+                                    "value": "14",
+                                    "description": "The code of the league."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"status\": \"success\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\"status\": \"error\"}",
+                            "name": "internal server error"
+                        }
+                    ]
+                },
+                {
+                    "name": "Generate result of next week",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/league-table\/:code\/generate-next",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/league-table\/:code\/generate-next",
+                            "variable": [
+                                {
+                                    "id": "code",
+                                    "key": "code",
+                                    "value": "6",
+                                    "description": "The code of the league."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"status\": \"success\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\"status\": \"error\"}",
+                            "name": "internal server error"
+                        }
+                    ]
+                },
+                {
+                    "name": "Generate all results",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/league-table\/:code\/generate-all",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/league-table\/:code\/generate-all",
+                            "variable": [
+                                {
+                                    "id": "code",
+                                    "key": "code",
+                                    "value": "2",
+                                    "description": "The code of the league."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"status\": \"success\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\"status\": \"error\"}",
+                            "name": "internal server error"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get last week results",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/league-table\/:code\/last_week",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/league-table\/:code\/last_week",
+                            "variable": [
+                                {
+                                    "id": "code",
+                                    "key": "code",
+                                    "value": "15",
+                                    "description": "The code of the league."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"status\": \"success\",\n \"data\": {\n     \"last_week\": 1,\n     \"results\": [\n         {\n             \"id\": 73,\n             \"league_id\": 1,\n             \"season\": 9,\n             \"match_week\": 1,\n             \"away_team_id\": 1,\n             \"away_team\": {\n                 \"id\": 1,\n                 \"name\": \"Manchester United\"\n             },\n             \"home_team_id\": 3,\n             \"home_team\": {\n                 \"id\": 3,\n                 \"name\": \"Chelsea\"\n             },\n             \"result_id\": 47,\n             \"result\": {\n                 \"id\": 47,\n                 \"home_club_goals\": 1,\n                 \"away_club_goals\": 5\n             },\n             \"created_at\": \"2021-10-11T12:52:57.000000Z\",\n             \"updated_at\": \"2021-10-11T12:52:59.000000Z\"\n         }\n     ]\n }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\"status\": \"error\"}",
+                            "name": "internal server error"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get all matches result",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/league-table\/:code\/results",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/v1\/league-table\/:code\/results",
+                            "variable": [
+                                {
+                                    "id": "code",
+                                    "key": "code",
+                                    "value": "20",
+                                    "description": "The code of the league."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"status\": \"success\",\n \"data\": {\n     \"1\": [\n         {\n             \"id\": 73,\n             \"league_id\": 1,\n             \"season\": 9,\n             \"match_week\": 1,\n             \"away_team_id\": 1,\n             \"away_team\": {\n                 \"id\": 1,\n                 \"name\": \"Manchester United\"\n             },\n             \"home_team_id\": 3,\n             \"home_team\": {\n                 \"id\": 3,\n                 \"name\": \"Chelsea\"\n             },\n             \"result_id\": 47,\n             \"result\": {\n                 \"id\": 47,\n                 \"home_club_goals\": 1,\n                 \"away_club_goals\": 5\n             },\n             \"created_at\": \"2021-10-11T12:52:57.000000Z\",\n             \"updated_at\": \"2021-10-11T12:52:59.000000Z\"\n         }\n     ]\n }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\"status\": \"error\"}",
+                            "name": "internal server error"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}

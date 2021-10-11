@@ -38862,9 +38862,13 @@ var render = function() {
                       "\n                        " +
                         _vm._s(result.home_team.name) +
                         " " +
-                        _vm._s(result.result.home_club_goals) +
+                        _vm._s(
+                          result.result ? result.result.home_club_goals : "_"
+                        ) +
                         " -\n                        " +
-                        _vm._s(result.result.away_club_goals) +
+                        _vm._s(
+                          result.result ? result.result.away_club_goals : "_"
+                        ) +
                         " " +
                         _vm._s(result.away_team.name) +
                         "\n                        "

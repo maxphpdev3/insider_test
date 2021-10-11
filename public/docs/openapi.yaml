@@ -1,0 +1,503 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  '/api/v1/league-table/{code}':
+    get:
+      summary: 'Get league'
+      description: 'Get information about league and teams'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  data:
+                    league:
+                      id: 1
+                      code: premier_league
+                      last_week: 6
+                      name: 'Premier League'
+                      season: 8
+                      created_at: '2021-10-11T10:15:39.000000Z'
+                      updated_at: '2021-10-11T10:50:32.000000Z'
+                    teams:
+                      -
+                        drawn: 2
+                        goals_against: 8
+                        goals_for: 13
+                        id: 21
+                        league_id: 1
+                        lost: 1
+                        played: 6
+                        points: 11
+                        statistic:
+                          id: 21
+                          league_team_id: 21
+                          prediction: 100
+                        team:
+                          id: 1
+                          code: man_united
+                          name: 'Manchester United'
+                        team_id: 1
+                        won: 3
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example:
+                      league:
+                        id: 1
+                        code: premier_league
+                        last_week: 6
+                        name: 'Premier League'
+                        season: 8
+                        created_at: '2021-10-11T10:15:39.000000Z'
+                        updated_at: '2021-10-11T10:50:32.000000Z'
+                      teams:
+                        -
+                          drawn: 2
+                          goals_against: 8
+                          goals_for: 13
+                          id: 21
+                          league_id: 1
+                          lost: 1
+                          played: 6
+                          points: 11
+                          statistic:
+                            id: 21
+                            league_team_id: 21
+                            prediction: 100
+                          team:
+                            id: 1
+                            code: man_united
+                            name: 'Manchester United'
+                          team_id: 1
+                          won: 3
+        500:
+          description: 'internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                properties:
+                  status:
+                    type: string
+                    example: error
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: code
+        description: 'The code of the league.'
+        example: 19
+        required: true
+        schema:
+          type: integer
+  '/api/v1/league-table/{code}/start-season':
+    post:
+      summary: 'Start new season'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                properties:
+                  status:
+                    type: string
+                    example: success
+        500:
+          description: 'internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                properties:
+                  status:
+                    type: string
+                    example: error
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: code
+        description: 'The code of the league.'
+        example: 14
+        required: true
+        schema:
+          type: integer
+  '/api/v1/league-table/{code}/generate-next':
+    post:
+      summary: 'Generate result of next week'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                properties:
+                  status:
+                    type: string
+                    example: success
+        500:
+          description: 'internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                properties:
+                  status:
+                    type: string
+                    example: error
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: code
+        description: 'The code of the league.'
+        example: 6
+        required: true
+        schema:
+          type: integer
+  '/api/v1/league-table/{code}/generate-all':
+    post:
+      summary: 'Generate all results'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                properties:
+                  status:
+                    type: string
+                    example: success
+        500:
+          description: 'internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                properties:
+                  status:
+                    type: string
+                    example: error
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: code
+        description: 'The code of the league.'
+        example: 2
+        required: true
+        schema:
+          type: integer
+  '/api/v1/league-table/{code}/last_week':
+    get:
+      summary: 'Get last week results'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  data:
+                    last_week: 1
+                    results:
+                      -
+                        id: 73
+                        league_id: 1
+                        season: 9
+                        match_week: 1
+                        away_team_id: 1
+                        away_team:
+                          id: 1
+                          name: 'Manchester United'
+                        home_team_id: 3
+                        home_team:
+                          id: 3
+                          name: Chelsea
+                        result_id: 47
+                        result:
+                          id: 47
+                          home_club_goals: 1
+                          away_club_goals: 5
+                        created_at: '2021-10-11T12:52:57.000000Z'
+                        updated_at: '2021-10-11T12:52:59.000000Z'
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example:
+                      last_week: 1
+                      results:
+                        -
+                          id: 73
+                          league_id: 1
+                          season: 9
+                          match_week: 1
+                          away_team_id: 1
+                          away_team:
+                            id: 1
+                            name: 'Manchester United'
+                          home_team_id: 3
+                          home_team:
+                            id: 3
+                            name: Chelsea
+                          result_id: 47
+                          result:
+                            id: 47
+                            home_club_goals: 1
+                            away_club_goals: 5
+                          created_at: '2021-10-11T12:52:57.000000Z'
+                          updated_at: '2021-10-11T12:52:59.000000Z'
+        500:
+          description: 'internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                properties:
+                  status:
+                    type: string
+                    example: error
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: code
+        description: 'The code of the league.'
+        example: 15
+        required: true
+        schema:
+          type: integer
+  '/api/v1/league-table/{code}/results':
+    get:
+      summary: 'Get all matches result'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  data:
+                    '1':
+                      -
+                        id: 73
+                        league_id: 1
+                        season: 9
+                        match_week: 1
+                        away_team_id: 1
+                        away_team:
+                          id: 1
+                          name: 'Manchester United'
+                        home_team_id: 3
+                        home_team:
+                          id: 3
+                          name: Chelsea
+                        result_id: 47
+                        result:
+                          id: 47
+                          home_club_goals: 1
+                          away_club_goals: 5
+                        created_at: '2021-10-11T12:52:57.000000Z'
+                        updated_at: '2021-10-11T12:52:59.000000Z'
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example:
+                      '1':
+                        -
+                          id: 73
+                          league_id: 1
+                          season: 9
+                          match_week: 1
+                          away_team_id: 1
+                          away_team:
+                            id: 1
+                            name: 'Manchester United'
+                          home_team_id: 3
+                          home_team:
+                            id: 3
+                            name: Chelsea
+                          result_id: 47
+                          result:
+                            id: 47
+                            home_club_goals: 1
+                            away_club_goals: 5
+                          created_at: '2021-10-11T12:52:57.000000Z'
+                          updated_at: '2021-10-11T12:52:59.000000Z'
+        500:
+          description: 'internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                properties:
+                  status:
+                    type: string
+                    example: error
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: code
+        description: 'The code of the league.'
+        example: 20
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: Endpoints
+    description: ''
